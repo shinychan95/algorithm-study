@@ -1,6 +1,5 @@
 import re
 
-
 def solution(files):
     answer = []
     HEAD = {}

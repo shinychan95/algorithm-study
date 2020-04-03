@@ -1,3 +1,5 @@
+# BAEKJOON 1780. 종이의 개수
+
 N = int(input())
 Array = []
 
