@@ -2,14 +2,16 @@ T = int(input())
 
 for i in range(T):
     N = int(input())
-    if N == 1:
-        print(1)
-        continue
 
-    A = 0
-    B = 1
-    for j in range(N - 1):
-        A, B = B, A+B
+    sqrt = 5 ** (1 / 2)
+    ans = int(1 / sqrt * (((1 + sqrt) / 2) ** N - ((1 - sqrt) / 2) ** N))
 
-    print(B % 2147483647)
+    print(ans % 2147483647)
+
+
+
+
+
+
+
 
