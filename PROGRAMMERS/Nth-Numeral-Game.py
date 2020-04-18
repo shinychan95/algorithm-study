@@ -3,7 +3,7 @@ base = "0123456789ABCDEF"
 
 def get_string(i, n):
     s = ""
-    while (1):
+    while 1:
         remain = i % n
         s = base[remain] + s
         i = i // n

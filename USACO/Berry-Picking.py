@@ -10,9 +10,8 @@ A = [int(i) for i in line.split(" ")]
 
 mod = 0
 
-M = 0
-for i in range(N):
-    M = max(M, A[i])
+M = max(A)
+
 best = 0
 for b in range(1, M+1):
     full = 0
