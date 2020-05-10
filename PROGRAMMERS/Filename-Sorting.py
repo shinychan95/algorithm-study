@@ -25,7 +25,7 @@ def solution(files):
             result[i] += "0"
         result[i] += NUMBER[i]
 
-    result = [ i[0] for i in sorted(result.items(), key=lambda t : t[1])]
+    result = [i[0] for i in sorted(result.items(), key=lambda t: t[1])]
     
     print(result)
     
