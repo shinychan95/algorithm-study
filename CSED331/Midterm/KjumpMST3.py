@@ -24,7 +24,6 @@ def connected(_edges, _v):
         return 0
 
 
-
 T = int(input())
 
 for t in range(T):
@@ -48,14 +47,12 @@ for t in range(T):
     interval = [0] * 1000000
     edges_num = []
 
-
-
     result = 0
     count = 1
     # print("****************")
     if connected(edges, N):
-        while stack:  # 인접한 것들을 stack에 넣는다.
-            v = heapq.heappop(stack)  # 제일 weight가 작은 놈부터 텔레포트 생성
+        while stack:
+            v = heapq.heappop(stack)
             if not sum(interval[v[0] - K + 1:v[0] + K]):
                 if not visited[v[1]] and not visited[v[2]]:
                     visited[v[1]] = 1

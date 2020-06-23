@@ -2,11 +2,16 @@ import heapq
 
 
 def find_p(p, n):
+    count = 0
+    _n = n
     while 1:
         if p[n] == n:
+            if count >= 2:
+                p[_n] = n
             return n
         else:
             n = p[n]
+            count += 1
 
 
 T = int(input())
@@ -15,22 +20,11 @@ for t in range(T):
 
     N, M, K = [int(i) for i in input().split(" ")]
 
-    visited = [0] * N
-    length = [0] * N
-    edges = []
-
-    # edges value: [weight, start(key), end]
-    for m in range(M):
+    # stack value: [weight, start(key), end]
+    stack = []
+    for b in range(M):
         s, e, w = [int(i) for i in input().split(" ")]
-        edges.append([w, s, e])
-        edges.append([w, e, s])
-        length[s] += 1
-        length[e] += 1
-
-    for i, e in enumerate(edges):
-        edges[i] = [length[e[1]]] + e
-
-    edges = [i for i in sorted(edges, key=lambda k: [k[0], k[1]], reverse=True)]
+        heapq.heappush(stack, [w, s, e])
 
     # print(edges)
     parents = [i for i in range(N)]
@@ -40,21 +34,21 @@ for t in range(T):
     count = 0
     interval = [0] * 1000000
     # print("****************")
-    while edges:
-        v = edges.pop()
+    while stack:
+        v = heapq.heappop(stack)
         # print("interval: ", interval[:20])
-        if sum(interval[max(v[1] - K + 1, 0):min(v[1] + K, 999999)]):
+        if sum(interval[max(v[0] - K + 1, 0):min(v[0] + K, 999999)]):
             pass
         else:
-            p_v_one = find_p(parents, v[2])
-            p_v_two = find_p(parents, v[3])
+            p_v_one = find_p(parents, v[1])
+            p_v_two = find_p(parents, v[2])
             if p_v_one == p_v_two:
                 pass
             else:
                 # print(v)
-                result += v[1]
+                result += v[0]
                 count += 1
-                interval[v[1]] = 1
+                interval[v[0]] = 1
                 if ranks[p_v_one] > ranks[p_v_two]:
                     parents[p_v_two] = p_v_one
                 elif ranks[p_v_one] == ranks[p_v_two]:

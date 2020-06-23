@@ -12,3 +12,4 @@ for t in range(T):
         arr = arr[3:]
     print(arr[N % 3 - 1] % M)
 
+
