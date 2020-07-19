@@ -15,6 +15,12 @@ for _ in range(T):
     # for _ in range(N - 1):
     #     temp = deepcopy(checked)
     #     checked = [temp, checked]
+    #
+    # print(checked)
+    #
+    # checked[0][0][0][0][0] = 1
+    #
+    # print(checked)
 
     checked = {}
     for i in product((-1, 1), repeat=N):
@@ -62,10 +68,4 @@ for _ in range(T):
         print("NO")
     else:
         print("Yes")
-
-
-
-
-
-
 

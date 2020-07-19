@@ -1,50 +1,54 @@
-import sys
-sys.setrecursionlimit(100000000)
+from sys import stdin
+
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
 
 
-def can_go(_x, _y):
-    if _x < 0 or _x == N or _y < 0 or _y == M or Map[_x][_y] == "1":
-        return False
-    else:
-        return True
+def bfs(x, y):
+    paths = 0
+    stack = [(x, y)]
+    visited[x][y] = 1
+    while stack:
+        for _ in range(len(stack)):
+            _x, _y = stack.pop(0)
+
+            for _d in range(4):
+                n_x, n_y = _x + dx[_d], _y + dy[_d]
+
+                if n_x < 0 or n_x == N or n_y < 0 or n_y == M or visited[n_x][n_y] or Map[n_x][n_y] == "1":
+                    continue
+
+                if Map[n_x][n_y] == "0":
+                    visited[n_x][n_y] = 1
+                    stack.append((n_x, n_y))
+                else:
+                    return paths + 1
+
+        paths += 1
+
+    return False
 
 
 N, M = map(int, input().split())
 
-Map = []
-Length = []
+Map = [stdin.readline().rstrip() for _ in range(N)]
+visited = [[0] * M for _ in range(N)]
 X = 0
 Y = 0
-for n in range(N):
-    Map.append(input())
-    Length.append([-1] * M)
-    for i, s in enumerate(Map[-1]):
+
+stop = False
+for i, m in enumerate(Map):
+    for j, s in enumerate(m):
         if s == "2":
-            X = n
-            Y = i
-
-Map[X] = Map[X][:Y] + "0" + Map[X][Y + 1:]
-
-Length[X][Y] = 0
-
-ctr = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-
-stack = [(X, Y)]
-path = 0
-result = 0
-while stack:
-    # print("stack: ", stack)
-    x, y = stack.pop(0)
-    # print("X:", x, "Y: ", y)
-
-    if Map[x][y] != "0":
-        result = Length[x][y]
+            X = i
+            Y = j
+            stop = True
+            break
+    if stop:
         break
 
-    for dx, dy in ctr:
-        if can_go(x + dx, y + dy):
-            Length[x + dx][y + dy] = Length[x][y] + 1
-            stack.append((x + dx, y + dy))
+
+result = bfs(X, Y)
 
 
 if result:
